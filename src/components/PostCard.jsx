@@ -30,30 +30,6 @@ const ShareIcon = () => (
   </svg>
 );
 
-const EmojiIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2">
-    <circle cx="12" cy="12" r="10" />
-    <path d="M8 13s1.5 2 4 2 4-2 4-2" />
-    <line x1="9" y1="9" x2="9.01" y2="9" strokeWidth="3" />
-    <line x1="15" y1="9" x2="15.01" y2="9" strokeWidth="3" />
-  </svg>
-);
-
-const GifIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2">
-    <rect x="2" y="6" width="20" height="12" rx="2" />
-    <text x="5.5" y="16" fontSize="7" fill="#bbb" fontWeight="800" stroke="none" fontFamily="sans-serif">GIF</text>
-  </svg>
-);
-
-const PollIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2">
-    <line x1="18" y1="20" x2="18" y2="10" />
-    <line x1="12" y1="20" x2="12" y2="4" />
-    <line x1="6" y1="20" x2="6" y2="14" />
-  </svg>
-);
-
 // Category badge — orange circle for every category
 function CategoryBadge({ category }) {
   const label = category.charAt(0) + category.slice(1).toLowerCase();
@@ -97,203 +73,174 @@ export default function PostCard({ post, index }) {
   const [imgHovered, setImgHovered] = useState(false);
   const [thought, setThought] = useState("");
 
-  let imgStyle = {};
-  if (post.id === 2) {
-    imgStyle = { height: 500 }; // taller image
-  } else {
-    imgStyle = { height: 250, width: "100%" }; // square
-  }
-
   return (
     <div style={{ background: "#fff" }}>
-      <div style={{ display: "flex", alignItems: "flex-start", gap: 10, padding: "16px 16px 0" }}>
+      <div style={{ padding: "16px 16px 0" }}>
 
-        {/* Avatar */}
-        <div
-          style={{
-            width: 42,
-            height: 42,
-            borderRadius: "50%",
-            background: post.avatarColor,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "#fff",
-            fontSize: 12,
-            fontWeight: 700,
-            fontFamily: "'Instrument Sans', sans-serif",
+        {/* ── CHANGE 1: Author row — avatar is inline with text only ── */}
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 10 }}>
+          <div style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
 
-            flexShrink: 0,
-          }}
-        >
-          {post.avatar}
-        </div>
+            {/* Avatar — circular, sits only next to author text */}
+            <div
+              style={{
+                width: 42,
+                height: 42,
+                borderRadius: "50%",
+                background: post.avatarColor,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#fff",
+                fontSize: 12,
+                fontWeight: 700,
+                fontFamily: "'Instrument Sans', sans-serif",
+                flexShrink: 0,
+              }}
+            >
+              {post.avatar}
+            </div>
 
-        {/* Right side */}
-        <div style={{ flex: 1, minWidth: 0 }}>
-
-          {/* Author info + badge */}
-          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 8 }}>
+            {/* Author text */}
             <div>
               <div style={{ fontSize: 13, fontWeight: 700, color: "#111", fontFamily: "'DM Sans', sans-serif" }}>
                 {post.author}
               </div>
-              <div style={{
-                fontSize: 11, color: "#999", fontFamily: "'Instrument Sans', sans-serif",
-                marginTop: 1
-              }}>
+              <div style={{ fontSize: 11, color: "#999", fontFamily: "'Instrument Sans', sans-serif", marginTop: 1 }}>
                 {post.handle} | {post.category.charAt(0) + post.category.slice(1).toLowerCase()}
               </div>
-              <div style={{
-                fontSize: 10, color: "#c0b8b0", fontFamily: "'Instrument Sans', sans-serif",
-                marginTop: 1
-              }}>
+              <div style={{ fontSize: 10, color: "#c0b8b0", fontFamily: "'Instrument Sans', sans-serif", marginTop: 1 }}>
                 Hong Kong · Jun 2024
               </div>
             </div>
-            <span>
-              <CategoryBadge category={post.category} />
-            </span>
           </div>
 
-          {/* Title */}
-          <div
+          {/* Badge top-right */}
+          <CategoryBadge category={post.category} />
+        </div>
+
+        {/* ── CHANGE 2: Everything below is full width — same left margin as title ── */}
+
+        {/* Title */}
+        <div
+          style={{
+            fontSize: 17,
+            fontWeight: 800,
+            color: "#111",
+            fontFamily: "'Instrument Sans', sans-serif",
+            lineHeight: 1.3,
+            marginBottom: 7,
+          }}
+        >
+          {post.title}
+        </div>
+
+        {/* Excerpt */}
+        <p style={{ margin: "0 0 12px", fontSize: 12, color: "#888", fontFamily: "'Instrument Sans', sans-serif", lineHeight: 1.65 }}>
+          {post.excerpt.slice(0, 130)}...{" "}
+          <span style={{ color: "#f97316", fontWeight: 600, cursor: "pointer", fontSize: 11 }}>
+            <br />View Content
+          </span>
+        </p>
+
+        {/* Image with hover zoom */}
+        <div
+          style={{
+            borderRadius: 2,
+            overflow: "hidden",
+            width: "100%",
+            marginBottom: 12,
+            cursor: "pointer",
+          }}
+          onMouseEnter={() => setImgHovered(true)}
+          onMouseLeave={() => setImgHovered(false)}
+        >
+          <img
+            src={post.image}
+            alt={post.title}
             style={{
-              fontSize: 17,
-              fontWeight: 800,
-              color: "#111",
-              fontFamily: "'Instrument Sans', sans-serif",
-
-              lineHeight: 1.3,
-              marginBottom: 7,
-            }}
-          >
-            {post.title}
-          </div>
-
-          {/* Excerpt */}
-          <p style={{
-            margin: "0 0 12px", fontSize: 12, color: "#888", fontFamily: "'Instrument Sans', sans-serif",
-            lineHeight: 1.65
-          }}>
-            {post.excerpt.slice(0, 130)}...{" "}
-            <span style={{ color: "#f97316", fontWeight: 600, cursor: "pointer", fontSize: 11 }}>
-              <br></br>View Content
-            </span>
-          </p>
-
-          {/*image with hover zoom */}
-          <div
-            style={{
-              borderRadius: 2,
-              overflow: "hidden",
               width: "100%",
-              marginBottom: 12,
-              cursor: "pointer",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+              transition: "transform 0.35s ease",
+              transform: imgHovered ? "scale(1.06)" : "scale(1)",
             }}
-            onMouseEnter={() => setImgHovered(true)}
-            onMouseLeave={() => setImgHovered(false)}
-          >
-            <img
-              src={post.image}
-              alt={post.title}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                display: "block",
-                transition: "transform 0.35s ease",
-                transform: imgHovered ? "scale(1.06)" : "scale(1)",
-              }}
-            />
-          </div>
+          />
+        </div>
 
-          {/* Engagement — icon only row matching the screenshot */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 20,
-              paddingBottom: 10,
-            }}
-          >
+        {/* Engagement row */}
+        <div style={{ display: "flex", alignItems: "center", gap: 20, paddingBottom: 10 }}>
+          {/* Like */}
+          <button onClick={() => setLiked(!liked)} style={{ ...iconBtn, color: liked ? "#e74c3c" : "#555" }}>
+            <LikeIcon filled={liked} />
+            <span style={iconCount}>{post.likes + (liked ? 1 : 0)}</span>
+          </button>
+          {/* Comment */}
+          <button style={iconBtn}>
+            <CommentIcon />
+            <span style={iconCount}>{post.comments}</span>
+          </button>
+          {/* Repost */}
+          <button style={iconBtn}>
+            <RepostIcon />
+          </button>
+          {/* Share */}
+          <button style={iconBtn}>
+            <ShareIcon />
+          </button>
+        </div>
 
+        {/* Your thoughts */}
+        <div style={{ paddingTop: 12, paddingBottom: 16, width: "60%" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            {/* Underline input */}
+            <div style={{ flex: 1, borderBottom: "1px solid #f0a060", paddingBottom: 4 }}>
+              <input
+                value={thought}
+                onChange={(e) => setThought(e.target.value)}
+                placeholder="your thoughts"
+                style={{
+                  width: "100%",
+                  border: "none",
+                  outline: "none",
+                  fontSize: 10,
+                  color: "#333",
+                  fontFamily: "'Instrument Sans', sans-serif",
+                  background: "transparent",
+                  padding: 0,
+                }}
+              />
+            </div>
 
-            {/* Like */}
-            <button
-              onClick={() => setLiked(!liked)}
-              style={{ ...iconBtn, color: liked ? "#e74c3c" : "#555" }}
-            >
-              <LikeIcon filled={liked} />
-              <span style={iconCount}>{post.likes + (liked ? 1 : 0)}</span>
-            </button>
-            {/* Comment */}
-            <button style={iconBtn}>
-              <CommentIcon />
-              <span style={iconCount}>{post.comments}</span>
-            </button>
-
-            {/* Repost */}
-            <button style={iconBtn}>
-              <RepostIcon />
-            </button>
-            {/* Share */}
-            <button style={iconBtn}>
-              <ShareIcon />
-            </button>
-          </div>
-
-          {/* Your thoughts */}
-          <div style={{ paddingTop: 12, paddingBottom: 16, width: "60%" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              {/* Underline input */}
-              <div style={{ flex: 1, borderBottom: "1px solid #f0a060", paddingBottom: 4 }}>
-                <input
-                  value={thought}
-                  onChange={(e) => setThought(e.target.value)}
-                  placeholder="your thoughts"
-                  style={{
-                    width: "100%",
-                    border: "none",
-                    outline: "none",
-                    fontSize: 10,
-                    color: "#333",
-                    fontFamily: "'Instrument Sans', sans-serif",
-                    background: "transparent",
-                    padding: 0,
-                  }}
-                />
+            {/* Icons: envelope, play, loop */}
+            <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
+              {/* Envelope */}
+              <div style={thoughtIconBox}>
+                <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
               </div>
-
-              {/* Icons: envelope, play, loop */}
-              <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
-                {/* Envelope */}
-                <div style={thoughtIconBox}>
-                  <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                    <polyline points="22,6 12,13 2,6" />
-                  </svg>
-                </div>
-                {/* Play */}
-                <div style={thoughtIconBox}>
-                  <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="10" />
-                    <polygon points="10 8 16 12 10 16 10 8" fill="#666" stroke="none" />
-                  </svg>
-                </div>
-                {/* Loop / refresh */}
-                <div style={thoughtIconBox}>
-                  <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M23 4v6h-6" />
-                    <path d="M1 20v-6h6" />
-                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
-                  </svg>
-                </div>
+              {/* Play */}
+              <div style={thoughtIconBox}>
+                <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <polygon points="10 8 16 12 10 16 10 8" fill="#666" stroke="none" />
+                </svg>
+              </div>
+              {/* Loop / refresh */}
+              <div style={thoughtIconBox}>
+                <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M23 4v6h-6" />
+                  <path d="M1 20v-6h6" />
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+                </svg>
               </div>
             </div>
           </div>
-
         </div>
+
       </div>
     </div>
   );
@@ -314,7 +261,6 @@ const iconBtn = {
 const iconCount = {
   fontSize: 12,
   fontFamily: "'Instrument Sans', sans-serif",
-
   color: "#777",
 };
 

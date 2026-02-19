@@ -94,14 +94,14 @@ export default function InlineAd() {
 <div
   style={{
     position: "relative",
-    width: "82%",
-    margin: "0 auto",
-    marginRight: 10,
+    width: "430px",
+    margin: "7px",
     borderRadius: 1,
+    padding: "20px",
     overflow: "hidden",
-    marginBottom: 18,
+    padding:10,
     cursor: "pointer",
-    background: "#b5a89a",
+    background: "#fff",
   }}
 >
 
@@ -110,8 +110,10 @@ export default function InlineAd() {
         src={adImg}
         alt="Ad"
         style={{
-          width: "100%",
+          width: "430px",
+          height:"500px",
           display: "block",
+          borderRadius:3,
           objectFit: "cover",
           aspectRatio: "3 / 4",
           opacity: 0.92,
@@ -122,7 +124,7 @@ export default function InlineAd() {
       <canvas
         ref={canvasRef}
         width={600}
-        height={800}
+        height={500}
         style={{
           position: "absolute",
           inset: 0,
@@ -132,106 +134,6 @@ export default function InlineAd() {
           pointerEvents: "none",
         }}
       />
-
-      {/* Dark bottom gradient for text legibility */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: "linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.0) 40%, rgba(0,0,0,0.18) 100%)",
-          pointerEvents: "none",
-        }}
-      />
-
-      {/* ── Top-right collage logos — flush to corner ── */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          right: 0,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-end",
-        }}
-      >
-        {/* DIESEL red box */}
-        <div
-          style={{
-            background: "#e8000d",
-            padding: "6px 12px",
-            transform: "rotate(-2deg) translate(3px, -3px)",
-            boxShadow: "0 3px 10px rgba(0,0,0,0.4)",
-          }}
-        >
-          <div
-            style={{
-              fontSize: 30,
-              fontWeight: 900,
-              color: "#fff",
-              fontFamily: "'DM Sans', sans-serif",
-              letterSpacing: "-0.02em",
-              lineHeight: 1,
-            }}
-          >
-            DIE<span style={{ fontStyle: "italic" }}>SEL</span>
-          </div>
-        </div>
-
-        {/* EASTPAK black strip */}
-        <div
-          style={{
-            background: "#111",
-            padding: "4px 12px",
-            transform: "rotate(1.5deg) translate(-4px, 2px)",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
-          }}
-        >
-          <div style={{ fontSize: 12, fontWeight: 800, color: "#fff", fontFamily: "'DM Sans', sans-serif", letterSpacing: "0.12em", textTransform: "uppercase" }}>
-            EASTPAK®
-          </div>
-          <div style={{ fontSize: 8, color: "rgba(255,255,255,0.55)", fontFamily: "'DM Sans', sans-serif", letterSpacing: "0.06em" }}>
-            FOR SUC...
-          </div>
-        </div>
-
-        {/* × RESIST tag */}
-        <div
-          style={{
-            background: "rgba(255,255,255,0.18)",
-            backdropFilter: "blur(4px)",
-            border: "1px solid rgba(255,255,255,0.35)",
-            padding: "3px 12px",
-            transform: "rotate(-1deg) translate(-6px, 5px)",
-          }}
-        >
-          <div style={{ fontSize: 10, fontWeight: 700, color: "#fff", fontFamily: "'DM Sans', sans-serif", letterSpacing: "0.2em", textTransform: "uppercase" }}>
-            × RESIST
-          </div>
-        </div>
-      </div>
-
-      {/* ── Left side: STAY AD WITH AI EFFECT in dark text ── */}
-      <div
-        style={{
-          position: "absolute",
-          top: "28%",
-          left: 16,
-        }}
-      >
-        <div
-          style={{
-            fontSize: 18,
-            fontWeight: 900,
-            color: "#111",
-            fontFamily: "'DM Sans', sans-serif",
-            lineHeight: 1.2,
-            textTransform: "uppercase",
-            letterSpacing: "0.01em",
-          }}
-        >
-          STAY AD<br />WITH AI EFFECT
-        </div>
-      </div>
 
       {/* ── Shop Now button ── */}
       <div
