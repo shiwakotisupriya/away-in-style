@@ -94,8 +94,7 @@ export default function InlineAd() {
 <div
   style={{
     position: "relative",
-    width: "430px",
-    margin: "7px",
+    width: "700",
     borderRadius: 1,
     padding: "20px",
     overflow: "hidden",
@@ -110,8 +109,8 @@ export default function InlineAd() {
         src={adImg}
         alt="Ad"
         style={{
-          width: "430px",
-          height:"500px",
+          width: "100%",
+          height:"40%",
           display: "block",
           borderRadius:3,
           objectFit: "cover",

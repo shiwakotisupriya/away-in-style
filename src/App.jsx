@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { posts } from "./data/posts";
 import Navbar from "./components/Navbar";
-// import BottomNav from "./components/BottomNav";
 import Billboard from "./components/Billboard";
 import PostCard from "./components/PostCard";
 import InlineAd from "./components/InlineAd";
@@ -12,35 +11,36 @@ export default function App() {
   return (
     <div
       style={{
-        maxWidth: 480,
-        margin: "0 auto",
+        width: "100%",
         background: "#fff",
         minHeight: "100vh",
-        position: "relative",
       }}
     >
+      {/*  FULL WIDTH — Navbar */}
       <Navbar active={activeNav} onSelect={setActiveNav} />
 
-      {/* Scrollable content */}
-      <div style={{ padding: "0 0 80px" }}>
-        <Billboard />
+      {/*  FULL WIDTH — Billboard */}
+      <Billboard />
 
-        {/* Divider */}
-        {/* <div style={{ height: 18 }} /> */}
-
+      {/*  750pxCENTERED — Posts and Ads */}
+      <div
+        style={{
+          width: "100%",
+          maxWidth: 750,
+          margin: "0 auto",
+          background: "#fff",
+          paddingBottom: 80,
+        }}
+      >
         <div style={{ padding: "0 14px" }}>
           {posts.map((post, i) => (
             <div key={post.id}>
               <PostCard post={post} />
-              {/* Show inline ad after 2nd post */}
               {i === 1 && <InlineAd />}
-              {/* {i === 1 && <div style={{ height: 4 }} />} */}
             </div>
           ))}
         </div>
       </div>
-
-      {/* <BottomNav /> */}
     </div>
   );
 }

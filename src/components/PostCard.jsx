@@ -149,6 +149,7 @@ export default function PostCard({ post, index }) {
             borderRadius: 2,
             overflow: "hidden",
             width: "100%",
+            height:"60%",
             marginBottom: 12,
             cursor: "pointer",
           }}
@@ -160,7 +161,7 @@ export default function PostCard({ post, index }) {
             alt={post.title}
             style={{
               width: "100%",
-              height: "100%",
+              height: "20%",
               objectFit: "cover",
               display: "block",
               transition: "transform 0.35s ease",
@@ -176,19 +177,25 @@ export default function PostCard({ post, index }) {
             <LikeIcon filled={liked} />
             <span style={iconCount}>{post.likes + (liked ? 1 : 0)}</span>
           </button>
+          {/* Repost */}
+          <button style={iconBtn}>
+            <span>Repost</span>
+            <RepostIcon />
+          </button>
+
+          {/* Share */}
+          <button style={iconBtn}>
+            <span>Share</span>
+            <ShareIcon />
+          </button>
           {/* Comment */}
           <button style={iconBtn}>
+            <span>Comment</span>
             <CommentIcon />
             <span style={iconCount}>{post.comments}</span>
           </button>
-          {/* Repost */}
-          <button style={iconBtn}>
-            <RepostIcon />
-          </button>
-          {/* Share */}
-          <button style={iconBtn}>
-            <ShareIcon />
-          </button>
+
+
         </div>
 
         {/* Your thoughts */}
